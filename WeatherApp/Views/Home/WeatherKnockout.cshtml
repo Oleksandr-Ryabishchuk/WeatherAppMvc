@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewBag.Title = "WeatherKnockout";
+}
+
+<h2 style="padding-left:12px">WeatherKnockout</h2>
+<div class="col-md-12"><h2>Current conditions in <span data-bind="text:name"></span></h2>
+</div>
+<div class="col-md-12"><h4>Temperature Celsius <span data-bind="text:main.temp"></span>&deg;</h4>    
+</div>
+<div class="col-md-12"><h4>
+    Humidity %:  <span data-bind="text:main.humidity"></span>
+</h4>
+</div>
+<div class="col-md-12">
+    <h4> Wind speed m/sec:  <span data-bind="text:wind.speed"></span></h4>
+</div>
+<div class="col-md-12">
+    <h4>Clouds %:  <span data-bind="text:clouds.all"></span></h4>
+</div>
+<div class="col-md-12">
+    <h4>Date:  <span data-bind="text: moment($data.CompletionDate).format('YYYY-MM-DD')"></span></h4>
+</div>
+<button id="current"  class="btn btn-primary btn-lg" style="position:relative; left:15px">   Get current weather
+</button>
+<script>
+    let weather = Object();
+    $(document).ready(function () {
+        $("#current").click(function () {
+            $.get("@Url.Action("GetWeather", "Home")", function (response) {
+                // response
+                
+                console.log(response);
+
+                weather = ko.mapping.fromJS(response);
+                ko.applyBindings(weather);
+
+            });
+        });
+    });
+</script>
