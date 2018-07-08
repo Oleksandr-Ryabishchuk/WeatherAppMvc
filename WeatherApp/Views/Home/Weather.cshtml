@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewBag.Title = "Get current weather without using closing data ";
+}
+
+<h2>Weather</h2>
+
+<div>
+    City name:
+    <span id="name"></span>
+</div>
+<div>
+    Temperature °C:
+    <span id="temp"></span>
+</div>
+<div>
+    Humidity %:
+    <span id="humidity"></span>
+</div>
+<div>
+    Wind speed m/sec:
+    <span id="wind"></span>
+</div>
+<div>
+    Clouds %:
+    <span id="clouds"></span>
+</div>
+<div>
+    Date:
+    <span id="dt"></span>
+</div>
+<button id="current">
+    Get current weather
+</button>
+<script>
+    $(document).ready(function () {
+        $("#current").click(function () {
+            $.get("http://api.openweathermap.org/data/2.5/weather?q=Dnipro&APPID=99868140eb66b6da1ac9a56c81cde945&units=metric", function (response) {
+                // response
+                let currentDate = new Date();
+                console.log(response);
+                $("#name").text(response.name);
+                $("#temp").text(response.main.temp);
+                $("#humidity").text(response.main.humidity);
+                $("#wind").text(response.wind.speed);
+                $("#clouds").text(response.clouds.all);
+                $("#dt").text(currentDate.getDate() + "/"
+                    + (currentDate.getMonth()) + "/"
+                    + (currentDate.getFullYear()));
+
+            });
+        });
+    });
+</script>
